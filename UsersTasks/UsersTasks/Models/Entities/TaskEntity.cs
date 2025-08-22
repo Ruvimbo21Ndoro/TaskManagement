@@ -1,11 +1,24 @@
-﻿namespace UsersTasks.Models.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace UsersTasks.Models.Entities
 {
     public class TaskEntity
     {
-        public Guid Id { get; set; }
+        [Key]
+        public Guid ID { get; set; }
 
-        public string  Username { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        [Required]
+        public string  Title { get; set; }
+
+        [Required]
+        public string Description { get; set; }
+
+        [Required]
+        public DateOnly DueDate { get; set; }
+
+        [Required]
+        public Guid Assignee { get; set; }
+        public UserEntity? User { get; set; } // Navigation property to the UserEntity
+
     }
 }

@@ -22,7 +22,10 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 
 builder.Services.AddDbContext<DBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), 
+    sql => sql.MigrationsAssembly("Data")
+    )
+);
 
 var app = builder.Build();
 

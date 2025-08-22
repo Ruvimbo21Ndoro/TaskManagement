@@ -1,6 +1,8 @@
-﻿namespace UsersTasks.Services
+﻿using UsersTasks.Interfaces.Services;
+
+namespace UsersTasks.Services
 {
-    public class TaskRepository
+    public class TaskService : ITaskService
     {
     }
 }

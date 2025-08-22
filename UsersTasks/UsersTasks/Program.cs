@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using UsersTasks.Data.DBContext;
 using UsersTasks.Interfaces.Repositories;
 using UsersTasks.Interfaces.Services;
 using UsersTasks.Repositories;
@@ -17,6 +19,10 @@ builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+
+builder.Services.AddDbContext<DBContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

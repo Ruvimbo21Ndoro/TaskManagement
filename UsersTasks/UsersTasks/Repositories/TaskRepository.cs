@@ -1,6 +1,8 @@
-﻿namespace UsersTasks.Repositories
+﻿using UsersTasks.Interfaces.Repositories;
+
+namespace UsersTasks.Repositories
 {
-    public class TaskRepository
+    public class TaskRepository : ITaskRepository
     {
     }
 }

@@ -11,6 +11,6 @@ namespace UsersTasks.Interfaces.Repositories
         Task DeleteATaskByIdAsync(Guid taskId);
         Task UpdateTaskByIdAsync(Guid taskId, TaskEntity newTask);
 
-        Task CreateTaskAsync(UserEntity user);
+        Task CreateTaskAsync(TaskEntity user);
     }
 }

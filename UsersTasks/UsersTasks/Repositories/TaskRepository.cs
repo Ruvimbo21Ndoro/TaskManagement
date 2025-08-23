@@ -1,33 +1,48 @@
-﻿using UsersTasks.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using UsersTasks.Data.DBContext;
+using UsersTasks.Interfaces.Repositories;
 using UsersTasks.Models.Entities;
 
 namespace UsersTasks.Repositories
 {
     public class TaskRepository : ITaskRepository
     {
-        public Task CreateTaskAsync(UserEntity user)
-        {
-            throw new NotImplementedException();
+        private readonly TaskContext _context;
+
+        public TaskRepository(TaskContext context) {
+            _context = context;
         }
 
-        public Task DeleteATaskByIdAsync(Guid taskId)
+        public async Task CreateTaskAsync(TaskEntity task)
         {
-            throw new NotImplementedException();
+            await _context.Tasks.AddAsync(task);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<List<TaskEntity>> GetAllTasksAsync()
+        public async Task DeleteATaskByIdAsync(TaskEntity task)
         {
-            throw new NotImplementedException();
+            _context.Tasks.Remove(task);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<TaskEntity> GetATaskByIdAsync(Guid taskId)
+        public async Task<List<TaskEntity>> GetAllTasksAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Tasks.ToListAsync();
         }
 
-        public Task UpdateTaskByIdAsync(Guid taskId, TaskEntity newTask)
+        public async Task<TaskEntity> GetATaskByIdAsync(Guid taskId)
         {
-            throw new NotImplementedException();
+            return await _context.Tasks.FindAsync(taskId);
+        }
+
+        public async Task UpdateTaskByIdAsync(Guid taskId, TaskEntity newTask)
+        {
+            task.Title = updatedTask.Title;
+            task.Description = updatedTask.Description;
+            task.Assignee = updatedTask.Assignee;
+            task.DueDate = updatedTask.DueDate;
+
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

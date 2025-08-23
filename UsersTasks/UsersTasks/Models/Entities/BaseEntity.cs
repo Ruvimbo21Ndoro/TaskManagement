@@ -3,7 +3,7 @@
 namespace UsersTasks.Models.Entities
 {
 
-    //Created a base entity that encapsulate fields that are the same in both entities
+    //Created a base entity that contains fields that are the same in both entities.
     public class BaseEntity 
     {
         [Key]

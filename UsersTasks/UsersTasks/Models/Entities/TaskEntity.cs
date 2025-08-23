@@ -2,11 +2,8 @@
 
 namespace UsersTasks.Models.Entities
 {
-    public class TaskEntity
+    public class TaskEntity : BaseEntity
     {
-        [Key]
-        public Guid ID { get; set; }
-
         [Required]
         public string  Title { get; set; }
 

@@ -3,10 +3,10 @@ using UsersTasks.Models.Entities;
 
 namespace UsersTasks.Data.DBContext
 {
-    public class DBContext : DbContext
+    public class TaskContext : DbContext
     {
 
-        public DBContext(DbContextOptions<DBContext> options) : base(options)
+        public TaskContext(DbContextOptions<TaskContext> options) : base(options)
         {
         }
         public DbSet<UserEntity> Users { get; set; }

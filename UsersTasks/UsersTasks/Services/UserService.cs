@@ -1,8 +1,8 @@
 ﻿using UsersTasks.DTOs.UserDTOs;
 using UsersTasks.Interfaces.Repositories;
 using UsersTasks.Interfaces.Services;
-using UsersTasks.Middleware;
 using UsersTasks.Models.Entities;
+using UsersTasks.Utilities;
 
 namespace UsersTasks.Services
 {

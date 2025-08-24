@@ -2,9 +2,9 @@ using Microsoft.EntityFrameworkCore;
 using UsersTasks.Data.DBContext;
 using UsersTasks.Interfaces.Repositories;
 using UsersTasks.Interfaces.Services;
-using UsersTasks.Middleware;
 using UsersTasks.Repositories;
 using UsersTasks.Services;
+using UsersTasks.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 

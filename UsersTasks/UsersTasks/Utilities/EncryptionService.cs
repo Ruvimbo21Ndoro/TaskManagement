@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace UsersTasks.Middleware
+namespace UsersTasks.Utilities
 {
     /// <summary>
     /// Encryption service to hash passwords with using BCrypt so that they are not stored as plaintext in the database.

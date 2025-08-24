@@ -1,4 +1,4 @@
-﻿namespace UsersTasks.Middleware
+﻿namespace UsersTasks.Utilities
 {
     public interface IEncryptionService
     {

@@ -42,7 +42,7 @@ namespace UsersTasks.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("GetAllTask")]
-        public async Task<ActionResult<List<FetchUserDTO>>> GetAllTasks()
+        public async Task<ActionResult<List<FetchTaskDTO>>> GetAllTasks()
         {
             try
             {
@@ -84,7 +84,7 @@ namespace UsersTasks.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("GetTask/{getTaskWithId}")]
-        public async Task<ActionResult<FetchUserDTO>> GetTaskById([FromRoute] Guid getTaskWithId)
+        public async Task<ActionResult<FetchTaskDTO>> GetTaskById([FromRoute] Guid getTaskWithId)
         {
             try
             {
@@ -121,6 +121,84 @@ namespace UsersTasks.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while trying to delete a task");
+                return StatusCode(500, "An unexpected error occurred, our team is currently looking into it. Please try again later");
+            }
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("GetExpiredTasks")]
+        public async Task<ActionResult<List<FetchTaskDTO>>> GetExpiredTasks()
+        {
+            try
+            {
+                var tasks = await _taskService.GetExpiredTasksAsync();
+                return Ok(tasks);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while trying to get expired tasks");
+                return StatusCode(500, "An unexpected error occurred, our team is currently looking into it. Please try again later");
+            }
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("GetActiveTasks")]
+        public async Task<ActionResult<List<FetchTaskDTO>>> GetActiveTasks()
+        {
+            try
+            {
+                var tasks = await _taskService.GetActiveTasksAsync();
+                return Ok(tasks);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while trying to get active tasks");
+                return StatusCode(500, "An unexpected error occurred, our team is currently looking into it. Please try again later");
+            }
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("GetTasksByDate/{givenDate}")]
+        public async Task<ActionResult<List<FetchTaskDTO>>> GetTasksByDate([FromRoute] DateOnly givenDate)
+        {
+            try
+            {
+                var tasks = await _taskService.GetTasksByDateAsync(givenDate);
+
+                if (tasks == null || !tasks.Any())
+                    return NotFound("No tasks found for the given date");
+
+                return Ok(tasks);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while trying to get tasks by date");
+                return StatusCode(500, "An unexpected error occurred, our team is currently looking into it. Please try again later");
+            }
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("GetTasksByAssignee/{assigneeId}")]
+        public async Task<ActionResult<List<FetchTaskDTO>>> GetTasksByAssignee([FromRoute] Guid assigneeId)
+        {
+            try
+            {
+                var tasks = await _taskService.GetTasksByAssigneeAsync(assigneeId);
+
+                if (tasks == null || !tasks.Any())
+                    return NotFound("No tasks found for the given assignee");
+
+                return Ok(tasks);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while trying to get tasks by assignee");
                 return StatusCode(500, "An unexpected error occurred, our team is currently looking into it. Please try again later");
             }
         }

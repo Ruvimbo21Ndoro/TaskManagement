@@ -65,12 +65,12 @@ namespace UsersTasks.Services
             }
         }
 
-        public async Task<List<TaskEntity>> GetAllTasksAsync()
+        public async Task<List<FetchTaskDTO>> GetAllTasksAsync()
         {
             return await _repo.GetAllTasksAsync();
         }
 
-        public async Task<TaskEntity> GetATaskByIdAsync(Guid taskId)
+        public async Task<FetchTaskDTO> GetATaskByIdAsync(Guid taskId)
         {
             try
             {
@@ -80,7 +80,24 @@ namespace UsersTasks.Services
                     return null;
 
 
-                return await _repo.GetATaskByIdAsync(taskId);
+
+                return new FetchTaskDTO
+                {
+                    Id = task.Id,
+                    CreatedDate = task.CreatedDate,
+                    UpdatedDate = task.UpdatedDate,
+                    Title = task.Title,
+                    Description = task.Description,
+                    DueDate = task.DueDate,
+                    Assignee = new FetchUserDTO
+                    {
+                        Id = task.User.Id,
+                        Username = task.User.Username,
+                        Email = task.User.Email,
+                        CreatedDate = task.User.CreatedDate,
+                        UpdatedDate = task.User.UpdatedDate
+                    }
+                };
             }
             catch (Exception)
             {
@@ -118,6 +135,26 @@ namespace UsersTasks.Services
             {
                 throw;
             }
+        }
+
+        public async Task<List<FetchTaskDTO>> GetExpiredTasksAsync()
+        {
+            return await _repo.GetExpiredTasksAsync();
+        }
+
+        public async Task<List<FetchTaskDTO>> GetActiveTasksAsync()
+        {
+            return await _repo.GetActiveTasksAsync();
+        }
+
+        public async Task<List<FetchTaskDTO>> GetTasksByDateAsync(DateOnly givenDate)
+        {
+            return await _repo.GetTasksByDateAsync(givenDate);
+        }
+
+        public async Task<List<FetchTaskDTO>> GetTasksByAssigneeAsync(Guid assigneeId)
+        {
+            return await _repo.GetTasksByAssigneeAsync(assigneeId);
         }
     }
 }

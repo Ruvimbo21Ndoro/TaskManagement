@@ -344,3 +344,4 @@ C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\ne
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.csproj.Up2Date
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.genruntimeconfig.cache
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\ref\UsersTasks.dll
+C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\bin\Debug\net8.0\BCrypt.Net-Next.dll

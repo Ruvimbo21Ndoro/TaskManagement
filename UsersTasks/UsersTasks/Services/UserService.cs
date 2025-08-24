@@ -1,6 +1,7 @@
 ﻿using UsersTasks.DTOs.UserDTOs;
 using UsersTasks.Interfaces.Repositories;
 using UsersTasks.Interfaces.Services;
+using UsersTasks.Middleware;
 using UsersTasks.Models.Entities;
 
 namespace UsersTasks.Services
@@ -8,8 +9,11 @@ namespace UsersTasks.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repo;
-        public UserService(IUserRepository repo) { 
+
+        private readonly IEncryptionService _encryptionService;
+        public UserService(IUserRepository repo, IEncryptionService encryptionService) { 
             _repo = repo;
+            _encryptionService = encryptionService;
         }
         public async Task<bool> CreateUserAsync(AddUserDTO user)
         {
@@ -26,7 +30,7 @@ namespace UsersTasks.Services
                 {
                     Email = user.Email,
                     Username = user.Username,
-                    Password = user.Password,
+                    Password = _encryptionService.HashPassword(user.Password),
                 };
 
                 await _repo.CreateUserAsync(newUser);

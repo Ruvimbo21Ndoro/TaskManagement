@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using UsersTasks.Data.DBContext;
 using UsersTasks.Interfaces.Repositories;
 using UsersTasks.Interfaces.Services;
+using UsersTasks.Middleware;
 using UsersTasks.Repositories;
 using UsersTasks.Services;
 
@@ -19,6 +20,8 @@ builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IEncryptionService, EncryptionService>();
 
 
 builder.Services.AddDbContext<TaskContext>(options =>

@@ -1,4 +1,6 @@
-﻿using UsersTasks.DTOs.TaskDTOs;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using UsersTasks.DTOs.TaskDTOs;
 using UsersTasks.DTOs.UserDTOs;
 using UsersTasks.Interfaces.Repositories;
 using UsersTasks.Interfaces.Services;
@@ -8,39 +10,114 @@ namespace UsersTasks.Services
 {
     public class TaskService : ITaskService
     {
-        ITaskRepository _repo;
-        public TaskService(ITaskRepository repo) {
+        private readonly ITaskRepository _repo;
+        private readonly IUserService _userService;
+        public TaskService(ITaskRepository repo, IUserService userService)
+        {
             _repo = repo;
+            _userService = userService;
         }
-        public async Task CreateTaskAsync(AddTaskDTO task)
+        public async Task<bool> CreateTaskAsync(AddTaskDTO task)
         {
-            //Get data from frontend
+            try
+            {
+                var user = await _userService.GetUserByIdAsync(task.Assignee);
 
-            // USerID .....
+                if (user == null)
+                    return false;
 
-            //Find if the assigned person id exists
+                var newTask = new TaskEntity
+                {
+                    Title = task.Title,
+                    Description = task.Description,
+                    DueDate = task.DueDate,
+                    Assignee = task.Assignee,
+                };
 
-            //await _repo.CreateTaskAsync();
+                await _repo.CreateTaskAsync(newTask);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task DeleteATaskByIdAsync(Guid taskId)
+        public async Task<bool> DeleteATaskByIdAsync(Guid taskId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var foundTask = await _repo.GetATaskByIdAsync(taskId);
+
+                if (foundTask == null)
+                {
+                    return false;
+                }
+
+                await _repo.DeleteATaskByIdAsync(foundTask);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<List<TaskEntity>> GetAllTasksAsync()
+        public async Task<List<TaskEntity>> GetAllTasksAsync()
         {
-            throw new NotImplementedException();
+            return await _repo.GetAllTasksAsync();
         }
 
-        public Task<TaskEntity> GetATaskByIdAsync(Guid taskId)
+        public async Task<TaskEntity> GetATaskByIdAsync(Guid taskId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var task = await _repo.GetATaskByIdAsync(taskId);
+
+                if (task == null)
+                    return null;
+
+
+                return await _repo.GetATaskByIdAsync(taskId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
-        public Task UpdateTaskByIdAsync(Guid taskId, TaskEntity newTask)
+        public async Task<bool> UpdateTaskByIdAsync(Guid taskId, UpdateTaskDTO updateTask)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var existingUser = await _userService.GetUserByIdAsync(updateTask.Assignee);
+
+                if (existingUser == null)
+                    return false;
+
+                var existingTask = await _repo.GetATaskByIdAsync(taskId);
+
+                if(existingTask == null)
+                    return false;
+
+
+                existingTask.Title = updateTask.Title;
+                existingTask.Description = updateTask.Description;
+                existingTask.DueDate = updateTask.DueDate;
+                existingTask.Assignee = updateTask.Assignee;
+                existingTask.UpdatedDate = DateTime.Now;
+               
+
+                await _repo.UpdateTaskByIdAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

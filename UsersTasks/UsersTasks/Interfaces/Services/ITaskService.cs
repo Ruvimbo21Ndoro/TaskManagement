@@ -10,9 +10,9 @@ namespace UsersTasks.Interfaces.Services
 
         Task<TaskEntity> GetATaskByIdAsync(Guid taskId);
 
-        Task DeleteATaskByIdAsync(Guid taskId);
-        Task UpdateTaskByIdAsync(Guid taskId, TaskEntity newTask);
+        Task<bool> DeleteATaskByIdAsync(Guid taskId);
+        Task<bool> UpdateTaskByIdAsync(Guid taskId, UpdateTaskDTO updateUser);
 
-        Task CreateTaskAsync(AddTaskDTO task);
+        Task<bool> CreateTaskAsync(AddTaskDTO task);
     }
 }

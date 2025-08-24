@@ -36,15 +36,15 @@ namespace UsersTasks.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpGet("GetUser/{id}")]
-        public async Task<ActionResult<FetchUserDTO>> GetUserById([FromRoute] Guid id)
+        [HttpGet("GetUser/{getUserWithId}")]
+        public async Task<ActionResult<FetchUserDTO>> GetUserById([FromRoute] Guid getUserWithId)
         {
             try
             {
-                var user = await _userService.GetUserByIdAsync(id);
+                var user = await _userService.GetUserByIdAsync(getUserWithId);
 
                 if (user == null)
-                    return NotFound();
+                    return NotFound("User with the provided Id was not found");
 
                 return Ok(user);
             }
@@ -82,13 +82,13 @@ namespace UsersTasks.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpPut("UpdateUser/{userId}")]
-        public async Task<IActionResult> UpdateUserById([FromRoute]Guid userId, [FromBody] UpdateUserDTO updateUser)
+        [HttpPut("UpdateUser/{updateUserWithUserId}")]
+        public async Task<IActionResult> UpdateUserById([FromRoute]Guid updateUserWithUserId, [FromBody] UpdateUserDTO updateUser)
         {
 
             try
             {
-                var updatedUser = await _userService.UpdateUserAsync(userId, updateUser);
+                var updatedUser = await _userService.UpdateUserAsync(updateUserWithUserId, updateUser);
 
                 if (!updatedUser)
                     return NotFound("The user with the provided details does not exist");
@@ -107,15 +107,15 @@ namespace UsersTasks.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpDelete("DeleteUser/{id}")]
-        public async Task<IActionResult> DeleteUserById([FromRoute] Guid id)
+        [HttpDelete("DeleteUser/{deleteUserWithId}")]
+        public async Task<IActionResult> DeleteUserById([FromRoute] Guid deleteUserWithId)
         {
             try
             {
-                var success = await _userService.DeleteUserAsync(id);
+                var isUserDeleted = await _userService.DeleteUserAsync(deleteUserWithId);
 
-                if (!success)
-                    return NotFound();
+                if (!isUserDeleted)
+                    return NotFound("The provided user was not found");
 
                 return NoContent();
             }

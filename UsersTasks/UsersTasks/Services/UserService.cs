@@ -7,7 +7,7 @@ namespace UsersTasks.Services
 {
     public class UserService : IUserService
     {
-        IUserRepository _repo;
+        private readonly IUserRepository _repo;
         public UserService(IUserRepository repo) { 
             _repo = repo;
         }
@@ -72,11 +72,6 @@ namespace UsersTasks.Services
                 throw;
             }
             
-        }
-
-        public async Task<FetchUserDTO> GetUserByEmail(string email)
-        {
-            return await _repo.GetUserByEmailAsync(email);
         }
 
         public async Task<FetchUserDTO?> GetUserByIdAsync(Guid userId)

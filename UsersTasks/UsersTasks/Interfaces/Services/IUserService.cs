@@ -14,7 +14,5 @@ namespace UsersTasks.Interfaces.Services
         Task<bool> UpdateUserAsync(Guid userId, UpdateUserDTO user);
 
         Task<bool> DeleteUserAsync(Guid userId);
-
-        Task<FetchUserDTO> GetUserByEmail(string email);
     }
 }

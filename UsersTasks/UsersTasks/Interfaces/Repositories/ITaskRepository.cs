@@ -9,7 +9,7 @@ namespace UsersTasks.Interfaces.Repositories
         Task<TaskEntity> GetATaskByIdAsync(Guid taskId);
 
         Task DeleteATaskByIdAsync(TaskEntity task);
-        Task UpdateTaskByIdAsync(TaskEntity newTask);
+        Task UpdateTaskByIdAsync();
 
         Task CreateTaskAsync(TaskEntity task);
     }

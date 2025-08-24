@@ -8,7 +8,7 @@ namespace UsersTasks.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        TaskContext _context;
+        private readonly TaskContext _context;
         public UserRepository(TaskContext context) { 
             _context = context;
         }

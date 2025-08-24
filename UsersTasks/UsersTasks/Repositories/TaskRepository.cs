@@ -35,7 +35,7 @@ namespace UsersTasks.Repositories
             return await _context.Tasks.FindAsync(taskId);
         }
 
-        public async Task UpdateTaskByIdAsync(TaskEntity newTask)
+        public async Task UpdateTaskByIdAsync()
         {
              await _context.SaveChangesAsync();
         }

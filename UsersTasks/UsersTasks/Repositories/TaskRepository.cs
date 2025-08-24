@@ -27,7 +27,7 @@ namespace UsersTasks.Repositories
 
         public async Task<List<TaskEntity>> GetAllTasksAsync()
         {
-            return await _context.Tasks.ToListAsync();
+            return await _context.Tasks.OrderByDescending(task => task.CreatedDate).ToListAsync();
         }
 
         public async Task<TaskEntity> GetATaskByIdAsync(Guid taskId)
@@ -35,14 +35,9 @@ namespace UsersTasks.Repositories
             return await _context.Tasks.FindAsync(taskId);
         }
 
-        public async Task UpdateTaskByIdAsync(Guid taskId, TaskEntity newTask)
+        public async Task UpdateTaskByIdAsync(TaskEntity newTask)
         {
-            task.Title = updatedTask.Title;
-            task.Description = updatedTask.Description;
-            task.Assignee = updatedTask.Assignee;
-            task.DueDate = updatedTask.DueDate;
-
-            return await _context.SaveChangesAsync() > 0;
+             await _context.SaveChangesAsync();
         }
     }
 }

@@ -7,9 +7,9 @@ namespace UsersTasks.Interfaces.Services
     {
         Task<bool> CreateUserAsync(AddUserDTO user);
 
-        Task<UserEntity> GetUserByIdAsync(Guid userId);
+        Task<FetchUserDTO> GetUserByIdAsync(Guid userId);
 
-        Task<List<UserEntity>> GetAllUsersAsync();
+        Task<List<FetchUserDTO>> GetAllUsersAsync();
 
         Task<bool> UpdateUserAsync(UpdateUserDTO user);
 

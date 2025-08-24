@@ -79,11 +79,24 @@ namespace UsersTasks.Services
             return await _repo.GetUserByEmailAsync(email);
         }
 
-        public async Task<UserEntity> GetUserByIdAsync(Guid userId)
+        public async Task<FetchUserDTO?> GetUserByIdAsync(Guid userId)
         {
             try
             {
-                return await _repo.GetUserByIdAsync(userId);
+                var user = await _repo.GetUserByIdAsync(userId);
+
+                if (user == null)
+                    return null;
+
+
+                return new FetchUserDTO
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    CreatedDate = user.CreatedDate,
+                    UpdatedDate = user.UpdatedDate,
+                };
             }
             catch (Exception)
             {

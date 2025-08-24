@@ -13,42 +13,65 @@ namespace UsersTasks.Services
         }
         public async Task<bool> CreateUserAsync(AddUserDTO user)
         {
-            var existingUser = await _repo.GetUserByEmailAsync(user.Email);
-
-            if (existingUser != null)
+            try
             {
-                return false;
+                var existingUser = await _repo.GetUserByEmailAsync(user.Email);
+
+                if (existingUser != null)
+                {
+                    return false;
+                }
+
+                var newUser = new UserEntity
+                {
+                    Email = user.Email,
+                    Username = user.Username,
+                    Password = user.Password,
+                };
+
+                await _repo.CreateUserAsync(newUser);
+
+                return true;
             }
-
-            var newUser = new UserEntity
+            catch (Exception)
             {
-                Email = user.Email,
-                Username = user.Username,
-                Password = user.Password,
-            };
-
-            await _repo.CreateUserAsync(newUser);
-
-            return true;
+                throw;
+            }
+            
         }
 
         public async Task<bool> DeleteUserAsync(Guid userId)
         {
-            var existingUser = await _repo.GetUserByIdAsync(userId);
-
-            if (existingUser == null)
+            try
             {
-                return false;
+                var existingUser = await _repo.GetUserByIdAsync(userId);
+
+                if (existingUser == null)
+                {
+                    return false;
+                }
+
+                await _repo.DeleteUserAsync(existingUser);
+
+                return true;
             }
-
-            await _repo.DeleteUserAsync(existingUser);
-
-            return true;
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
-        public async Task<List<UserEntity>> GetAllUsersAsync()
+        public async Task<List<FetchUserDTO>> GetAllUsersAsync()
         {
-            return await _repo.GetAllUsersAsync();
+            try
+            {
+                return await _repo.GetAllUsersAsync();
+            }
+            catch (Exception) {
+                throw;
+            }
+            
         }
 
         public async Task<FetchUserDTO> GetUserByEmail(string email)
@@ -58,24 +81,39 @@ namespace UsersTasks.Services
 
         public async Task<UserEntity> GetUserByIdAsync(Guid userId)
         {
-            return await _repo.GetUserByIdAsync(userId);
+            try
+            {
+                return await _repo.GetUserByIdAsync(userId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         public async Task<bool> UpdateUserAsync(UpdateUserDTO user)
         {
-            var existingUser = await _repo.GetUserByIdAsync(user.Id);
-
-            if (existingUser == null)
+            try
             {
-                return false;
+                var existingUser = await _repo.GetUserByIdAsync(user.Id);
+
+                if (existingUser == null)
+                {
+                    return false;
+                }
+
+                existingUser.Username = user.Username;
+                existingUser.Password = user.Password;
+                existingUser.Email = user.Email;
+
+                await _repo.UpdateUserAsync(existingUser);
+                return true;
             }
-
-            existingUser.Username = user.Username;
-            existingUser.Password = user.Password;
-            existingUser.Email = user.Email;
-
-            await _repo.UpdateUserAsync(existingUser);
-            return true;
+            catch (Exception) {
+                throw;
+            }
+            
         }
     }
 }

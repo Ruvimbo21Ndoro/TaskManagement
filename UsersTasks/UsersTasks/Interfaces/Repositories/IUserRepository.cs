@@ -9,7 +9,7 @@ namespace UsersTasks.Interfaces.Repositories
 
         Task<UserEntity> GetUserByIdAsync(Guid userId);
 
-        Task<List<UserEntity>> GetAllUsersAsync();
+        Task<List<FetchUserDTO>> GetAllUsersAsync();
 
         Task UpdateUserAsync(UserEntity userId);
 

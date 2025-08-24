@@ -24,9 +24,17 @@ namespace UsersTasks.Repositories
              await _context.SaveChangesAsync();
         }
 
-        public async Task<List<UserEntity>> GetAllUsersAsync()
+        public async Task<List<FetchUserDTO>> GetAllUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.OrderByDescending(user => user.CreatedDate).Select(user => new FetchUserDTO
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                CreatedDate = user.CreatedDate,
+                UpdatedDate = user.UpdatedDate
+
+            }).ToListAsync();
         }
 
         public async Task<FetchUserDTO> GetUserByEmailAsync(string email)

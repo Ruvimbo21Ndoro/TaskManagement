@@ -1,4 +1,5 @@
-﻿using UsersTasks.Models.Entities;
+﻿using UsersTasks.DTOs.UserDTOs;
+using UsersTasks.Models.Entities;
 
 namespace UsersTasks.Interfaces.Repositories
 {
@@ -10,8 +11,10 @@ namespace UsersTasks.Interfaces.Repositories
 
         Task<List<UserEntity>> GetAllUsersAsync();
 
-        Task UpdateUserAsync(Guid userId);
+        Task UpdateUserAsync(UserEntity userId);
 
-        Task DeleteUserAsync(Guid userId);
+        Task DeleteUserAsync(UserEntity userId);
+
+        Task<FetchUserDTO> GetUserByEmailAsync(string email);
     }
 }

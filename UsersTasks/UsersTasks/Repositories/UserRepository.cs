@@ -1,33 +1,54 @@
-﻿using UsersTasks.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using UsersTasks.Data.DBContext;
+using UsersTasks.DTOs.UserDTOs;
+using UsersTasks.Interfaces.Repositories;
 using UsersTasks.Models.Entities;
 
 namespace UsersTasks.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public Task CreateUserAsync(UserEntity user)
+        TaskContext _context;
+        public UserRepository(TaskContext context) { 
+            _context = context;
+        }
+        public async Task CreateUserAsync(UserEntity user)
         {
-            throw new NotImplementedException();
+           await _context.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
 
-        public Task DeleteUserAsync(Guid userId)
+        public async Task DeleteUserAsync(UserEntity user)
         {
-            throw new NotImplementedException();
+             _context.Users.Remove(user);
+             await _context.SaveChangesAsync();
         }
 
-        public Task<List<UserEntity>> GetAllUsersAsync()
+        public async Task<List<UserEntity>> GetAllUsersAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Users.ToListAsync();
         }
 
-        public Task<UserEntity> GetUserByIdAsync(Guid userId)
+        public async Task<FetchUserDTO> GetUserByEmailAsync(string email)
         {
-            throw new NotImplementedException();
+            return await _context.Users.Where(user => user.Email.Equals(email)).Select(user => new FetchUserDTO { 
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                CreatedDate = user.CreatedDate,
+                UpdatedDate = user.UpdatedDate
+
+            }).FirstOrDefaultAsync();
         }
 
-        public Task UpdateUserAsync(Guid userId)
+        public async Task<UserEntity> GetUserByIdAsync(Guid userId)
         {
-            throw new NotImplementedException();
+            return await _context.Users.FindAsync(userId);
+        }
+
+        public async Task UpdateUserAsync(UserEntity user)
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

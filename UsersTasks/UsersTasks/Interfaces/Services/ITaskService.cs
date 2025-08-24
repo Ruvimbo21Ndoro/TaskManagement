@@ -1,4 +1,5 @@
-﻿using UsersTasks.DTOs;
+﻿using UsersTasks.DTOs.TaskDTOs;
+using UsersTasks.DTOs.UserDTOs;
 using UsersTasks.Models.Entities;
 
 namespace UsersTasks.Interfaces.Services
@@ -12,6 +13,6 @@ namespace UsersTasks.Interfaces.Services
         Task DeleteATaskByIdAsync(Guid taskId);
         Task UpdateTaskByIdAsync(Guid taskId, TaskEntity newTask);
 
-        Task CreateTaskAsync(AddTaskDTO user);
+        Task CreateTaskAsync(AddTaskDTO task);
     }
 }

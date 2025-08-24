@@ -1,8 +1,81 @@
-﻿using UsersTasks.Interfaces.Services;
+﻿using UsersTasks.DTOs.UserDTOs;
+using UsersTasks.Interfaces.Repositories;
+using UsersTasks.Interfaces.Services;
+using UsersTasks.Models.Entities;
 
 namespace UsersTasks.Services
 {
     public class UserService : IUserService
     {
+        IUserRepository _repo;
+        public UserService(IUserRepository repo) { 
+            _repo = repo;
+        }
+        public async Task<bool> CreateUserAsync(AddUserDTO user)
+        {
+            var existingUser = await _repo.GetUserByEmailAsync(user.Email);
+
+            if (existingUser != null)
+            {
+                return false;
+            }
+
+            var newUser = new UserEntity
+            {
+                Email = user.Email,
+                Username = user.Username,
+                Password = user.Password,
+            };
+
+            await _repo.CreateUserAsync(newUser);
+
+            return true;
+        }
+
+        public async Task<bool> DeleteUserAsync(Guid userId)
+        {
+            var existingUser = await _repo.GetUserByIdAsync(userId);
+
+            if (existingUser == null)
+            {
+                return false;
+            }
+
+            await _repo.DeleteUserAsync(existingUser);
+
+            return true;
+        }
+
+        public async Task<List<UserEntity>> GetAllUsersAsync()
+        {
+            return await _repo.GetAllUsersAsync();
+        }
+
+        public async Task<FetchUserDTO> GetUserByEmail(string email)
+        {
+            return await _repo.GetUserByEmailAsync(email);
+        }
+
+        public async Task<UserEntity> GetUserByIdAsync(Guid userId)
+        {
+            return await _repo.GetUserByIdAsync(userId);
+        }
+
+        public async Task<bool> UpdateUserAsync(UpdateUserDTO user)
+        {
+            var existingUser = await _repo.GetUserByIdAsync(user.Id);
+
+            if (existingUser == null)
+            {
+                return false;
+            }
+
+            existingUser.Username = user.Username;
+            existingUser.Password = user.Password;
+            existingUser.Email = user.Email;
+
+            await _repo.UpdateUserAsync(existingUser);
+            return true;
+        }
     }
 }

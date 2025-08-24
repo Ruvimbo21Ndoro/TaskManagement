@@ -78,7 +78,7 @@ namespace UsersTasks.Repositories
             ).ToListAsync();
         }
 
-        //This is a helper method that contains the logic to project the entity to the DTO,
+        //This is a helper method that contains the logic to map the entity to the DTO,
         //so that I do not do it redundantly in each method
         private IQueryable<FetchTaskDTO> ProjectToFetchTaskDTO(IQueryable<TaskEntity> query)
         {

@@ -5,12 +5,18 @@ namespace UsersTasks.DTOs.TaskDTOs
     public class AddTaskDTO
     {
 
-        public required string Title { get; set; }
+        [Required(ErrorMessage = "Title is required")]
+        [StringLength(100)]
+        public string Title { get; set; }
 
-        public required string Description { get; set; }
+        [Required(ErrorMessage = "Description is required")]
+        [StringLength(500)]
+        public string Description { get; set; }
 
-        public required DateOnly DueDate { get; set; }
+        [Required(ErrorMessage = "Due date is required")]
+        public DateOnly DueDate { get; set; }
 
-        public required Guid Assignee { get; set; }
+        [Required(ErrorMessage = "Assignee is required")]
+        public Guid Assignee { get; set; }
     }
 }

@@ -53,8 +53,6 @@ namespace UsersTasks.Controllers
                 _logger.LogError(ex, "An error occurred while trying to get user details");
                 return StatusCode(500, "An unexpected error occurred, our team is currently looking into it. Please try again later");
             }
-
-            
         }
 
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -70,7 +68,7 @@ namespace UsersTasks.Controllers
                 if (!isUserAdded)
                     return Conflict("A user with the provided email already exists");
 
-                return CreatedAtAction(nameof(GetUserById), new { email = newUser.Email }, newUser);
+                return CreatedAtAction(nameof(AddNewUser), new { email = newUser.Email }, newUser);
             }
             catch (Exception ex)
             {
@@ -84,13 +82,13 @@ namespace UsersTasks.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpPut("UpdateUser")]
-        public async Task<IActionResult> UpdateUserById([FromBody] UpdateUserDTO updateUser)
+        [HttpPut("UpdateUser/{userId}")]
+        public async Task<IActionResult> UpdateUserById([FromRoute]Guid userId, [FromBody] UpdateUserDTO updateUser)
         {
 
             try
             {
-                var updatedUser = await _userService.UpdateUserAsync(updateUser);
+                var updatedUser = await _userService.UpdateUserAsync(userId, updateUser);
 
                 if (!updatedUser)
                     return NotFound("The user with the provided details does not exist");

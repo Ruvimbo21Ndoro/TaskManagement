@@ -180,6 +180,9 @@ C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\ne
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.sourcelink.json
+C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.dll
+C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\refint\UsersTasks.dll
+C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.pdb
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\bin\Debug\net8.0\appsettings.json
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\bin\Debug\net8.0\UsersTasks.staticwebassets.endpoints.json
@@ -339,8 +342,5 @@ C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\ne
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.csproj.Up2Date
-C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.dll
-C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\refint\UsersTasks.dll
-C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.pdb
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\UsersTasks.genruntimeconfig.cache
 C:\Users\DELL\OneDrive\Desktop\TaskManagement\UsersTasks\UsersTasks\obj\Debug\net8.0\ref\UsersTasks.dll

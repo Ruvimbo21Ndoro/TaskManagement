@@ -11,7 +11,7 @@ namespace UsersTasks.Interfaces.Services
 
         Task<List<FetchUserDTO>> GetAllUsersAsync();
 
-        Task<bool> UpdateUserAsync(UpdateUserDTO user);
+        Task<bool> UpdateUserAsync(Guid userId, UpdateUserDTO user);
 
         Task<bool> DeleteUserAsync(Guid userId);
 

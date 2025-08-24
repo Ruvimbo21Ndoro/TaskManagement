@@ -105,11 +105,11 @@ namespace UsersTasks.Services
             
         }
 
-        public async Task<bool> UpdateUserAsync(UpdateUserDTO user)
+        public async Task<bool> UpdateUserAsync(Guid userId, UpdateUserDTO user)
         {
             try
             {
-                var existingUser = await _repo.GetUserByIdAsync(user.Id);
+                var existingUser = await _repo.GetUserByIdAsync(userId);
 
                 if (existingUser == null)
                 {
@@ -119,6 +119,7 @@ namespace UsersTasks.Services
                 existingUser.Username = user.Username;
                 existingUser.Password = user.Password;
                 existingUser.Email = user.Email;
+                existingUser.UpdatedDate = DateTime.Now;
 
                 await _repo.UpdateUserAsync(existingUser);
                 return true;

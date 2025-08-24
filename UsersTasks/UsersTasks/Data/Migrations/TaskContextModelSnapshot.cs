@@ -52,7 +52,7 @@ namespace UsersTasks.Data.Migrations
 
                     b.HasIndex("Assignee");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("Tasks", (string)null);
                 });
 
             modelBuilder.Entity("UsersTasks.Models.Entities.UserEntity", b =>
@@ -81,7 +81,7 @@ namespace UsersTasks.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("UsersTasks.Models.Entities.TaskEntity", b =>
